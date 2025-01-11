@@ -98,7 +98,7 @@ export const CompanyInternshipsPage = (props: PropsCompanyInternshipsPage) => {
         </Dialog>
       </Box>
 
-      <InternshipList internships={props.internships} userType="company" />
+      <InternshipList internships={props.internships} setInternships={props.setInternships} userType="company" />
     </>
   )
 }
