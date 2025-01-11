@@ -4,7 +4,7 @@ import { Internship } from "../models/Internship"
 
 export const StudentInternshipsPage = (props: PropsStudentInternshipsPage) => {
   return (
-    <InternshipList internships={props.internships}/>
+    <InternshipList internships={props.internships} userType="student" />
   )
 }
 

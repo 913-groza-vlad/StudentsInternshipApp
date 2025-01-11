@@ -15,7 +15,7 @@ export const WrapperInternshipsPage = (props: PropsWrapperInternshipsPage) => {
         ?
           <StudentInternshipsPage internships={internships} />
         : 
-          <CompanyInternshipsPage internships={internships} />
+          <CompanyInternshipsPage internships={internships} setInternships={setInternships} />
       }
     </div>
   )
