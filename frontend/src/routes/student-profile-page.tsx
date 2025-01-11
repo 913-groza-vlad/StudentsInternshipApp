@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Container,
@@ -6,12 +7,13 @@ import {
   List,
   ListItem,
   ListItemText,
+  Snackbar,
   TextField,
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
 import { StudentProfile, WorkExperience } from '../models/StudentProfile';
-import { Delete } from '@mui/icons-material';
+import { Add, Delete } from '@mui/icons-material';
 import { userService } from '../services/userService';
 
 export const StudentProfilePage = () => {
@@ -102,6 +104,13 @@ export const StudentProfilePage = () => {
       ...profile,
       experience: profile.experience.filter((_, i) => i !== index),
     });
+  };
+
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const handleClose = () => {
+    setVisible(false);
   };
 
   return (
@@ -210,12 +219,21 @@ export const StudentProfilePage = () => {
               fullWidth
             />
             <Button variant="contained" onClick={handleSkillAdd}>
-              Add
+              <Add />
             </Button>
           </Box>
-          <List>
+          <List
+            sx={{
+              width: '100%',
+              borderRadius: 2,
+              mt: 1,
+            }}
+          >
             {profile.skills.map((skill, index) => (
               <ListItem
+                sx={{
+                  borderBottom: '1px solid rgba(198, 198, 198, 0.7)',
+                }}
                 key={index}
                 secondaryAction={
                   <IconButton
@@ -273,8 +291,8 @@ export const StudentProfilePage = () => {
               }
               fullWidth
             />
-            <Button variant="contained" onClick={handleExperienceAdd}>
-              Add
+            <Button onClick={handleExperienceAdd} variant="contained">
+              <Add />
             </Button>
           </Box>
           <List>
@@ -289,6 +307,9 @@ export const StudentProfilePage = () => {
                     <Delete />
                   </IconButton>
                 }
+                sx={{
+                  borderBottom: '1px solid rgba(198, 198, 198, 0.7)',
+                }}
               >
                 <ListItemText
                   primary={`${exp.position} at ${exp.company}`}
@@ -329,13 +350,25 @@ export const StudentProfilePage = () => {
             localStorage.setItem('user', JSON.stringify(profile.student));
             userService.updateUser(profile.student);
             userService.updateStudentProfile(profile);
-            alert('Profile saved successfully!');
+            setMessage('Profile saved successfully');
+            setVisible(true);
           }}
           sx={{ mt: 2, mb: 5, width: '50%', alignSelf: 'center' }}
         >
           Save Profile
         </Button>
       </Box>
+
+      <Snackbar
+        open={visible}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          {message}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
