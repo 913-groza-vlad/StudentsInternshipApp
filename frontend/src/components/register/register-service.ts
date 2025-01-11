@@ -1,11 +1,12 @@
 import { CompanyRegisterRequest, StudentRegisterRequest } from "../../models/RegisterRequest";
-import { getUserByEmail, users } from "../../models/User";
+import { userService } from "../../services/userService";
 
 export const registerCompanyUser = (registerRequest: CompanyRegisterRequest): boolean => {
   const { email, password, companyName, location }= registerRequest;
-  if (getUserByEmail(email)) {
+  if (userService.getUserByEmail(email)) {
     return false;
   }
+  const users = userService.getAllUsers();
   users.push({ 
     id: users.length + 1,
     role: 'company',
@@ -20,9 +21,10 @@ export const registerCompanyUser = (registerRequest: CompanyRegisterRequest): bo
 
 export const RegisterStudentUser = (registerRequest: StudentRegisterRequest): boolean => {
   const { email, password, firstName, lastName, university } = registerRequest;
-  if (getUserByEmail(email)) {
+  if (userService.getUserByEmail(email)) {
     return false;
   }
+  const users = userService.getAllUsers();
   users.push({ 
     id: users.length + 1,
     role: 'student',

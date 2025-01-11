@@ -12,14 +12,15 @@ import {
 import { useState } from 'react';
 import { StudentProfile, WorkExperience } from '../models/StudentProfile';
 import { Delete } from '@mui/icons-material';
+import { userService } from '../services/userService';
 
 export const StudentProfilePage = () => {
   const user = localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user')!)
     : { firstName: '', lastName: '', email: '', university: '' };
 
-  const profileData = localStorage.getItem('profile')
-    ? JSON.parse(localStorage.getItem('profile')!)
+  const profileData = localStorage.getItem('student-profile')
+    ? JSON.parse(localStorage.getItem('student-profile')!)
     : {
         user: user,
         phoneNumber: '',
@@ -324,8 +325,10 @@ export const StudentProfilePage = () => {
           variant="contained"
           color="primary"
           onClick={() => {
-            localStorage.setItem('profile', JSON.stringify(profile));
+            localStorage.setItem('student-profile', JSON.stringify(profile));
             localStorage.setItem('user', JSON.stringify(profile.student));
+            userService.updateUser(profile.student);
+            userService.updateStudentProfile(profile);
             alert('Profile saved successfully!');
           }}
           sx={{ mt: 2, mb: 5, width: '50%', alignSelf: 'center' }}

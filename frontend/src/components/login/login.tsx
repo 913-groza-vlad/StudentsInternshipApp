@@ -11,8 +11,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { LoginRequest } from '../../models/LoginRequest';
 import { loginUser } from './login-service';
-import { getUserByEmail } from '../../models/User';
 import { useState } from 'react';
+import { userService } from '../../services/userService';
 
 export const LoginComponent = () => {
   const navigate = useNavigate();
@@ -26,8 +26,11 @@ export const LoginComponent = () => {
       password: e.currentTarget.password.value,
     };
     if (loginUser(loginRequest)) {
-      const user = getUserByEmail(loginRequest.username);
+      const user = userService.getUserByEmail(loginRequest.username);
+      const studentProfile = userService.getStudentProfile(user!);
       localStorage.setItem('user', JSON.stringify(user));
+      if (studentProfile)
+        localStorage.setItem('student-profile', JSON.stringify(studentProfile));
       navigate('/main/' + user?.role);
     } else {
       setMessage('Invalid username or password. Please try again.');
