@@ -22,6 +22,7 @@ export const RegisterPage = () => {
         justifyContent: 'space-between',
         width: '50vw',
         height: '90vh',
+        marginTop: '5vh',
       }}
     >
       <Box

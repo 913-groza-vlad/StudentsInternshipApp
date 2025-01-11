@@ -13,6 +13,7 @@ export const StartPage = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-between",
+        marginTop: "20vh"
       }}
     >
       <Typography 
