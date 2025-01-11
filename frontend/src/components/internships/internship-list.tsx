@@ -6,7 +6,7 @@ export const InternshipList = (props: PropsInternshipList) => {
     <Box sx={{ flexGrow: 1, p: 2 }}>
       <List>
         {props.internships.map((internship, index) => (
-          <ListItem key={index} sx={{ mb: 2, border: '1px solid #ddd', borderRadius: '8px'}}>
+          <ListItem key={index}>
             <Card variant="outlined">
               <CardContent>
                 <Typography variant="h6" gutterBottom>
