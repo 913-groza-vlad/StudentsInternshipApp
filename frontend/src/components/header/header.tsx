@@ -4,7 +4,7 @@ import { AppBar, Box } from '@mui/material';
 export const Header = () => {
   return (
     <AppBar 
-      position="static"
+      position="fixed"
       sx={{
         height: '50px',
         display: 'flex',
