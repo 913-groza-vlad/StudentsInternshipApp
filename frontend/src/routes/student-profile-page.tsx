@@ -1,0 +1,338 @@
+import {
+  Box,
+  Button,
+  Container,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { useState } from 'react';
+import { StudentProfile, WorkExperience } from '../models/StudentProfile';
+import { Delete } from '@mui/icons-material';
+
+export const StudentProfilePage = () => {
+  const user = localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user')!)
+    : { firstName: '', lastName: '', email: '', university: '' };
+
+  const profileData = localStorage.getItem('profile')
+    ? JSON.parse(localStorage.getItem('profile')!)
+    : {
+        user: user,
+        phoneNumber: '',
+        skills: [],
+        experience: [],
+        bio: '',
+        profilePicture: '',
+        resume: '',
+      };
+
+  const [profile, setProfile] = useState<StudentProfile>({
+    student: user,
+    phoneNumber: profileData.phoneNumber,
+    skills: profileData.skills,
+    fieldOfStudy: profileData.fieldOfStudy,
+    yearOfStudy: profileData.yearOfStudy,
+    experience: profileData.experience,
+    bio: profileData.bio,
+    profilePicture: profileData.profilePicture,
+    resume: profileData.resume,
+  });
+
+  const [newSkill, setNewSkill] = useState<string>('');
+  const [newExperience, setNewExperience] = useState<WorkExperience>({
+    company: '',
+    position: '',
+    startDate: '',
+    endDate: '',
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name in profile.student) {
+      setProfile({
+        ...profile,
+        student: { ...profile.student, [name]: value },
+      });
+    } else {
+      setProfile({ ...profile, [name]: value });
+    }
+  };
+
+  const handleSkillAdd = () => {
+    if (newSkill.trim()) {
+      setProfile({ ...profile, skills: [...profile.skills, newSkill.trim()] });
+      setNewSkill('');
+    }
+  };
+
+  const handleSkillDelete = (index: number) => {
+    setProfile({
+      ...profile,
+      skills: profile.skills.filter((_, i) => i !== index),
+    });
+  };
+
+  const handleExperienceAdd = () => {
+    if (
+      newExperience.company.trim() &&
+      newExperience.position.trim() &&
+      newExperience.startDate.trim() &&
+      newExperience.endDate.trim()
+    ) {
+      setProfile({
+        ...profile,
+        experience: [...profile.experience, newExperience],
+      });
+      setNewExperience({
+        company: '',
+        position: '',
+        startDate: '',
+        endDate: '',
+      });
+    }
+  };
+
+  const handleExperienceDelete = (index: number) => {
+    setProfile({
+      ...profile,
+      experience: profile.experience.filter((_, i) => i !== index),
+    });
+  };
+
+  return (
+    <Container
+      sx={{
+        maxWidth: 'sm',
+        color: 'black',
+      }}
+    >
+      <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', gap: 3 }}>
+        <Typography variant="h4" gutterBottom>
+          Student Profile
+        </Typography>
+
+        {/* Personal Details */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+          }}
+        >
+          <Typography variant="h6" sx={{ mb: 2, ml: 2 }}>
+            Personal Details
+          </Typography>
+          <TextField
+            label="First Name"
+            name="firstName"
+            value={profile.student.firstName}
+            onChange={handleInputChange}
+            sx={{ mb: 2, width: '70%' }}
+            autoComplete="off"
+          />
+          <TextField
+            label="Last Name"
+            name="lastName"
+            value={profile.student.lastName}
+            onChange={handleInputChange}
+            sx={{ mb: 2, width: '70%' }}
+            autoComplete="off"
+          />
+          <TextField
+            label="Email"
+            name="email"
+            value={profile.student.email}
+            InputProps={{ readOnly: true }}
+            sx={{ mb: 2, width: '70%' }}
+          />
+          <TextField
+            label="Phone Number"
+            name="phoneNumber"
+            value={profile.phoneNumber}
+            onChange={handleInputChange}
+            sx={{ mb: 2, width: '70%' }}
+            autoComplete="off"
+          />
+        </Box>
+
+        {/* Education */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+          }}
+        >
+          <Typography variant="h6" gutterBottom sx={{ mb: 2, ml: 2 }}>
+            Education
+          </Typography>
+          <TextField
+            label="University"
+            name="university"
+            value={profile.student.university}
+            onChange={handleInputChange}
+            sx={{ mb: 2, width: '50%' }}
+            autoComplete="off"
+          />
+          <TextField
+            label="Field Of Study"
+            name="fieldOfStudy"
+            value={profile.fieldOfStudy}
+            onChange={handleInputChange}
+            sx={{ mb: 2, width: '50%' }}
+            autoComplete="off"
+          />
+          <TextField
+            label="Year Of Study"
+            name="yearOfStudy"
+            value={profile.yearOfStudy}
+            onChange={handleInputChange}
+            sx={{ mb: 2, width: '50%' }}
+            autoComplete="off"
+          />
+        </Box>
+
+        {/* Skills */}
+        <Box>
+          <Typography variant="h6" gutterBottom>
+            Skills
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <TextField
+              label="Add Skill"
+              value={newSkill}
+              onChange={(e) => setNewSkill(e.target.value)}
+              fullWidth
+            />
+            <Button variant="contained" onClick={handleSkillAdd}>
+              Add
+            </Button>
+          </Box>
+          <List>
+            {profile.skills.map((skill, index) => (
+              <ListItem
+                key={index}
+                secondaryAction={
+                  <IconButton
+                    edge="end"
+                    onClick={() => handleSkillDelete(index)}
+                  >
+                    <Delete />
+                  </IconButton>
+                }
+              >
+                <ListItemText primary={skill} />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+
+        {/* Work Experience */}
+        <Box>
+          <Typography variant="h6" gutterBottom>
+            Work Experience
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+            <TextField
+              label="Company"
+              value={newExperience.company}
+              onChange={(e) =>
+                setNewExperience({ ...newExperience, company: e.target.value })
+              }
+              fullWidth
+            />
+            <TextField
+              label="Position"
+              value={newExperience.position}
+              onChange={(e) =>
+                setNewExperience({ ...newExperience, position: e.target.value })
+              }
+              fullWidth
+            />
+            <TextField
+              label="Start Date"
+              value={newExperience.startDate}
+              onChange={(e) =>
+                setNewExperience({
+                  ...newExperience,
+                  startDate: e.target.value,
+                })
+              }
+              fullWidth
+            />
+            <TextField
+              label="End Date"
+              value={newExperience.endDate}
+              onChange={(e) =>
+                setNewExperience({ ...newExperience, endDate: e.target.value })
+              }
+              fullWidth
+            />
+            <Button variant="contained" onClick={handleExperienceAdd}>
+              Add
+            </Button>
+          </Box>
+          <List>
+            {profile.experience.map((exp, index) => (
+              <ListItem
+                key={index}
+                secondaryAction={
+                  <IconButton
+                    edge="end"
+                    onClick={() => handleExperienceDelete(index)}
+                  >
+                    <Delete />
+                  </IconButton>
+                }
+              >
+                <ListItemText
+                  primary={`${exp.position} at ${exp.company}`}
+                  secondary={`${exp.startDate} - ${exp.endDate}`}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+
+        {/* Bio */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+          }}
+        >
+          <Typography variant="h6" gutterBottom sx={{ mb: 2, ml: 2 }}>
+            About
+          </Typography>
+          <TextField
+            fullWidth
+            multiline
+            minRows={4}
+            label="Bio"
+            name="bio"
+            value={profile.bio}
+            onChange={handleInputChange}
+          />
+        </Box>
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            localStorage.setItem('profile', JSON.stringify(profile));
+            localStorage.setItem('user', JSON.stringify(profile.student));
+            alert('Profile saved successfully!');
+          }}
+          sx={{ mt: 2, mb: 5, width: '50%', alignSelf: 'center' }}
+        >
+          Save Profile
+        </Button>
+      </Box>
+    </Container>
+  );
+};

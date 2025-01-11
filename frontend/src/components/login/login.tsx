@@ -27,6 +27,7 @@ export const LoginComponent = () => {
     };
     if (loginUser(loginRequest)) {
       const user = getUserByEmail(loginRequest.username);
+      localStorage.setItem('user', JSON.stringify(user));
       navigate('/main/' + user?.role);
     } else {
       setMessage('Invalid username or password. Please try again.');
