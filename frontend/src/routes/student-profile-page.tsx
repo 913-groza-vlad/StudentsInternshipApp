@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { StudentProfile, WorkExperience } from '../models/StudentProfile';
 import { Add, Delete } from '@mui/icons-material';
 import { userService } from '../services/userService';
+import { ProfilePictureUploader } from '../components/students/picture-upload';
 
 export const StudentProfilePage = () => {
   const user = localStorage.getItem('user')
@@ -124,6 +125,16 @@ export const StudentProfilePage = () => {
         <Typography variant="h4" gutterBottom>
           Student Profile
         </Typography>
+
+        {/* Profile Picture */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <ProfilePictureUploader profile={profile} setProfile={setProfile} />
+        </Box>
 
         {/* Personal Details */}
         <Box
