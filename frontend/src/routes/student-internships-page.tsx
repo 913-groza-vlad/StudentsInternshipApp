@@ -1,6 +1,13 @@
+import { InternshipList } from "../components/internships/internship-list"
+import { Internship } from "../models/Internship"
 
-export const StudentInternshipsPage = () => {
+
+export const StudentInternshipsPage = (props: PropsStudentInternshipsPage) => {
   return (
-    <div style={{ color: 'black' }}>Student Main Page</div>
+    <InternshipList internships={props.internships} setInternships={props.setInternships} userType="student" />
   )
+}
+
+type PropsStudentInternshipsPage = {
+  internships: Array<Internship>
 }
