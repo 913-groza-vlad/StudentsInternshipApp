@@ -1,37 +1,61 @@
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { AppBar, Button } from '@mui/material';
+import { AppBar, Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const user = localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user')!)
+    : {};
 
   const handleLogout = () => {
     navigate('/login');
     localStorage.removeItem('user');
-  }
+    localStorage.removeItem('student-profile');
+  };
 
   return (
-    <AppBar 
+    <AppBar
       position="fixed"
       sx={{
         height: '50px',
         display: 'flex',
         justifyContent: 'center',
-        px: 5
+        px: 5,
       }}
     >
-      <div style={{width: '100%', display: 'flex', alignItems: 'center'}}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
         <Button color="inherit" onClick={handleLogout}>
           Logout
         </Button>
 
-        <AccountCircle 
+        <Box
           sx={{
+            display: 'flex',
+            alignItems: 'center',
             marginLeft: 'auto',
-            cursor: 'pointer'
           }}
-        />
-      </div>
+        >
+          <AccountCircle
+            onClick={() => {
+              if (user.role === 'student') navigate('/student-profile');
+              // TO DO: Add navigation for company user
+            }}
+            sx={{ marginRight: 1, cursor: 'pointer' }}
+          />
+          <Typography variant="body1" color="inherit">
+            {user.role === 'student'
+              ? user.firstName + ' ' + user.lastName
+              : user.companyName}
+          </Typography>
+        </Box>
+      </Box>
     </AppBar>
-  )
-} 
+  );
+};
