@@ -13,7 +13,7 @@ export const WrapperInternshipsPage = (props: PropsWrapperInternshipsPage) => {
       <Header />
       {props.userType == "student" 
         ?
-          <StudentInternshipsPage internships={internships} />
+          <StudentInternshipsPage internships={internships} setInternships={setInternships} />
         : 
           <CompanyInternshipsPage internships={internships} setInternships={setInternships} />
       }
