@@ -16,6 +16,7 @@ import { StudentProfile, WorkExperience } from '../models/StudentProfile';
 import { Add, Delete } from '@mui/icons-material';
 import { userService } from '../services/userService';
 import { ProfilePictureUploader } from '../components/students/picture-upload';
+import UploadResume from '../components/students/resume-upload';
 
 export const StudentProfilePage = () => {
   const user = localStorage.getItem('user')
@@ -352,6 +353,9 @@ export const StudentProfilePage = () => {
             onChange={handleInputChange}
           />
         </Box>
+
+        {/* Resume */}
+        <UploadResume profile={profile} setProfile={setProfile} />
 
         <Button
           variant="contained"
