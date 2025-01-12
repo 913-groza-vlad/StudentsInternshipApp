@@ -21,8 +21,18 @@ export const InternshipList = (props: PropsInternshipList) => {
 
   const handleSave = () => {
     if (updatedInternship) {
+      const updatedInternships = props.internships.map((internship) =>
+        internship.id === updatedInternship.id ? updatedInternship : internship
+      );
+  
+      // Step 2: Save the updated array to localStorage
+      localStorage.setItem("internships", JSON.stringify(updatedInternships));
+  
+      // Optionally: Update the state to reflect the changes (if you're using state to manage internships)
+      props.setInternships(updatedInternships); // Make sure you have a state to store the internships
+  
+      // Clear the editing mode
       setEditingInternship(null);
-      console.log("Updated Internship:", updatedInternship);
     }
   };
 

@@ -32,11 +32,16 @@ export const CompanyInternshipsPage = (props: PropsCompanyInternshipsPage) => {
 
     setMessage('Internship added successfully!');
 
-    props.setInternships([...props.internships, {
+    const internshipsUpdated = [...props.internships, {
+      id: Math.floor(Math.random() * 1000000000),
       title: title,
       summary: summary,
       salary: Number(salary)
-    }]);
+    }]
+
+
+    props.setInternships(internshipsUpdated);
+    localStorage.setItem("internships", JSON.stringify(internshipsUpdated));
 
     setTitle('');
     setSummary('');
