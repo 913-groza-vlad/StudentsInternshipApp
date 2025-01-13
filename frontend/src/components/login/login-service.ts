@@ -2,7 +2,7 @@ import { LoginRequest } from "../../models/LoginRequest";
 import { userService } from "../../services/userService";
 
 
-export const loginUser = (loginRequest: LoginRequest): boolean => {
+export const LoginUser = (loginRequest: LoginRequest): boolean => {
   const { username, password } = loginRequest;
 
   const users = userService.getAllUsers();

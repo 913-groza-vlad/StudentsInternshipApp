@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { LoginRequest } from '../../models/LoginRequest';
-import { loginUser } from './login-service';
+import { LoginUser } from './login-service';
 import { useState } from 'react';
 import { userService } from '../../services/userService';
 
@@ -25,7 +25,7 @@ export const LoginComponent = () => {
       username: e.currentTarget.username.value,
       password: e.currentTarget.password.value,
     };
-    if (loginUser(loginRequest)) {
+    if (LoginUser(loginRequest)) {
       const user = userService.getUserByEmail(loginRequest.username);
       const studentProfile = userService.getStudentProfile(user!);
       localStorage.setItem('user', JSON.stringify(user));

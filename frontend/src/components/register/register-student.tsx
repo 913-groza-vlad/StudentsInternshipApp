@@ -39,22 +39,52 @@ export const StudentRegistrationForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const registerRequest: StudentRegisterRequest = {
-      email: e.currentTarget.email.value,
-      password: e.currentTarget.password.value,
-      firstName: e.currentTarget.firstName.value,
-      lastName: e.currentTarget.lastName.value,
-      university: e.currentTarget.university.value,
-    };
+
+    const email = e.currentTarget.email.value.trim();
+    const firstName = e.currentTarget.firstName.value.trim();
+    const lastName = e.currentTarget.lastName.value.trim();
+    const university = e.currentTarget.university.value.trim();
+    const password = e.currentTarget.password.value;
+    const confirmPassword = e.currentTarget.confirmPassword.value;
+
+    if (
+      !email ||
+      !firstName ||
+      !lastName ||
+      !university ||
+      !password ||
+      !confirmPassword
+    ) {
+      setMessage('All fields are required');
+      setSeverity('error');
+      setVisible(true);
+      return;
+    }
+
     if (
       passwordMatchError ||
-      registerRequest.password !== e.currentTarget.confirmPassword.value
+      password !== e.currentTarget.confirmPassword.value
     ) {
       setMessage('Passwords do not match');
       setSeverity('error');
       setVisible(true);
       return;
     }
+
+    if (password.length < 8) {
+      setMessage('Password must be at least 8 characters long');
+      setSeverity('error');
+      setVisible(true);
+      return;
+    }
+
+    const registerRequest: StudentRegisterRequest = {
+      email,
+      password,
+      firstName,
+      lastName,
+      university,
+    };
 
     if (RegisterStudentUser(registerRequest)) {
       setMessage('You have registered successfully');
