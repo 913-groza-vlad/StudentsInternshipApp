@@ -1,9 +1,17 @@
-import { InternshipList } from "../components/internships/internship-list"
-import { Internship } from "../models/Internship"
-import { Button, Box, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Alert } from "@mui/material"
+import { InternshipList } from '../components/internships/internship-list';
+import { Internship } from '../models/Internship';
+import {
+  Button,
+  Box,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Alert,
+} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { useState } from "react";
-
+import { useState } from 'react';
 
 export const CompanyInternshipsPage = (props: PropsCompanyInternshipsPage) => {
   const [open, setOpen] = useState(false);
@@ -32,23 +40,25 @@ export const CompanyInternshipsPage = (props: PropsCompanyInternshipsPage) => {
 
     setMessage('Internship added successfully!');
 
-    const internshipsUpdated = [...props.internships, {
-      id: Math.floor(Math.random() * 1000000000),
-      title: title,
-      summary: summary,
-      salary: Number(salary)
-    }]
-
+    const internshipsUpdated = [
+      ...props.internships,
+      {
+        id: Math.floor(Math.random() * 1000000000),
+        title: title,
+        summary: summary,
+        salary: Number(salary),
+        companyId: JSON.parse(localStorage.getItem('user')!).id,
+      },
+    ];
 
     props.setInternships(internshipsUpdated);
-    localStorage.setItem("internships", JSON.stringify(internshipsUpdated));
+    localStorage.setItem('internships', JSON.stringify(internshipsUpdated));
 
     setTitle('');
     setSummary('');
     setSalary('');
     handleClose();
   };
-
 
   return (
     <>
@@ -59,7 +69,17 @@ export const CompanyInternshipsPage = (props: PropsCompanyInternshipsPage) => {
         </Button>
 
         <Dialog open={open} onClose={handleClose}>
-          {message && <Alert severity={message === 'Internship added successfully!' ? 'success' : 'error'}>{message}</Alert>}
+          {message && (
+            <Alert
+              severity={
+                message === 'Internship added successfully!'
+                  ? 'success'
+                  : 'error'
+              }
+            >
+              {message}
+            </Alert>
+          )}
 
           <DialogTitle>Add Internship</DialogTitle>
           <DialogContent>
@@ -103,12 +123,16 @@ export const CompanyInternshipsPage = (props: PropsCompanyInternshipsPage) => {
         </Dialog>
       </Box>
 
-      <InternshipList internships={props.internships} setInternships={props.setInternships} userType="company" />
+      <InternshipList
+        internships={props.internships}
+        setInternships={props.setInternships}
+        userType="company"
+      />
     </>
-  )
-}
+  );
+};
 
 type PropsCompanyInternshipsPage = {
-  internships: Array<Internship>,
-  setInternships: (internships: Array<Internship>) => void 
-}
+  internships: Array<Internship>;
+  setInternships: (internships: Array<Internship>) => void;
+};
