@@ -123,7 +123,7 @@ export const StudentProfilePage = () => {
       }}
     >
       <Box sx={{ mt: 4, display: 'flex', flexDirection: 'column', gap: 3 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom sx={{ alignSelf: 'center' }}>
           Student Profile
         </Typography>
 

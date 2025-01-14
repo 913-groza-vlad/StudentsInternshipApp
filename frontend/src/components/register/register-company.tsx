@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { CompanyRegisterRequest } from '../../models/RegisterRequest';
-import { registerCompanyUser } from './register-service';
+import { RegisterCompanyUser } from './register-service';
 import { useNavigate } from 'react-router-dom';
 
 export const CompanyRegistrationForm = () => {
@@ -39,15 +39,23 @@ export const CompanyRegistrationForm = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const registerRequest: CompanyRegisterRequest = {
-      email: e.currentTarget.email.value,
-      password: e.currentTarget.password.value,
-      companyName: e.currentTarget.companyName.value,
-      location: e.currentTarget.location.value,
-    };
+
+    const email = e.currentTarget.email.value.trim();
+    const companyName = e.currentTarget.companyName.value.trim();
+    const location = e.currentTarget.location.value.trim();
+    const password = e.currentTarget.password.value;
+    const confirmPassword = e.currentTarget.confirmPassword.value;
+
+    if (!email || !companyName || !location || !password || !confirmPassword) {
+      setMessage('All fields are required');
+      setSeverity('error');
+      setVisible(true);
+      return;
+    }
+
     if (
       passwordMatchError ||
-      registerRequest.password !== e.currentTarget.confirmPassword.value
+      password !== e.currentTarget.confirmPassword.value
     ) {
       setMessage('Passwords do not match');
       setSeverity('error');
@@ -55,7 +63,21 @@ export const CompanyRegistrationForm = () => {
       return;
     }
 
-    if (registerCompanyUser(registerRequest)) {
+    if (password.length < 8) {
+      setMessage('Password must be at least 8 characters long');
+      setSeverity('error');
+      setVisible(true);
+      return;
+    }
+
+    const registerRequest: CompanyRegisterRequest = {
+      email,
+      password,
+      companyName,
+      location,
+    };
+
+    if (RegisterCompanyUser(registerRequest)) {
       setMessage('You have registered successfully');
       setSeverity('success');
       setVisible(true);

@@ -1,7 +1,7 @@
 import { CompanyRegisterRequest, StudentRegisterRequest } from "../../models/RegisterRequest";
 import { userService } from "../../services/userService";
 
-export const registerCompanyUser = (registerRequest: CompanyRegisterRequest): boolean => {
+export const RegisterCompanyUser = (registerRequest: CompanyRegisterRequest): boolean => {
   const { email, password, companyName, location }= registerRequest;
   if (userService.getUserByEmail(email)) {
     return false;

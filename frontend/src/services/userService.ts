@@ -20,6 +20,15 @@ const users: User[] = [
     companyName: 'Google',
     role: 'company',
   },
+  {
+    id: 3,
+    email: 'amazon@amazon.com',
+    password: 'Password789',
+    firstName: undefined,
+    lastName: undefined,
+    companyName: 'Amazon',
+    role: 'company',
+  },
 ];
 
 export const studentProfiles: StudentProfile[] = [];
@@ -69,5 +78,9 @@ export const userService = {
 
   getStudentProfile: (user: User): StudentProfile | undefined => {
     return studentProfiles.find((profile) => profile.student.email === user.email);
+  },
+
+  getUserById: (id: number): User | undefined => {
+    return users.find((user) => user.id === id);
   }
 };
