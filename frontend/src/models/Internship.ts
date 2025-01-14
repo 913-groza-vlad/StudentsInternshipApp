@@ -48,7 +48,35 @@ export const internshipsHardcodedInitialState = [
     "summary": "The HR Intern will support the HR team in recruitment, employee engagement, onboarding, and other HR processes. You will help in organizing training sessions, maintaining employee records, and assisting with performance reviews and HR compliance.",
     "salary": 1700,
     "companyId": 3
-  }
+  },
+  {
+    "id": 7,
+    "title": "Software Engineering Intern",
+    "summary": "As a Software Engineering Intern at Tesla, you will be part of a team working on cutting-edge software projects, collaborating with senior developers, and contributing to high-quality code and innovative solutions.",
+    "salary": 2500,
+    "companyId": 4
+  },
+  {
+    "id": 8,
+    "title": "Data Science Intern",
+    "summary": "The Data Science Intern will analyze large datasets, develop predictive models, and provide insights to support Tesla's business and product decisions.",
+    "salary": 2700,
+    "companyId": 4
+  },
+  {
+    "id": 9,
+    "title": "UI/UX Design Intern",
+    "summary": "The UI/UX Design Intern will help craft intuitive and visually appealing interfaces for Tesla's software products, collaborating with developers and product managers.",
+    "salary": 2200,
+    "companyId": 4
+  },
+  {
+    "id": 10,
+    "title": "Cybersecurity Intern",
+    "summary": "The Cybersecurity Intern will assist the security team in identifying vulnerabilities, implementing security measures, and conducting penetration testing to ensure robust protection.",
+    "salary": 2800,
+    "companyId": 4
+  },
 ]
 
 export const getInternshipsFromLocalStorage = () => {

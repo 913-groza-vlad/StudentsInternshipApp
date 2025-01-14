@@ -75,7 +75,7 @@ export const InternshipList = (props: PropsInternshipList) => {
       <List>
         {internships.map((internship, index) => (
           <ListItem key={index}>
-            <Card variant="outlined">
+            <Card variant="outlined" sx={{ width: '100%' }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
                   {internship.title}
