@@ -26,7 +26,7 @@ export const InternshipList = (props: PropsInternshipList) => {
   const [updatedInternship, setUpdatedInternship] = useState<Internship | null>(
     null
   );
-  const [message, setMessage] = useState<string>('');
+  const [message] = useState<string>('');
 
   const handleApply = (title: string) => {
     setAppliedInternships((prev) => [...prev, title]);

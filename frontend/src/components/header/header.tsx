@@ -12,6 +12,7 @@ export const Header = () => {
     navigate('/login');
     localStorage.removeItem('user');
     localStorage.removeItem('student-profile');
+    localStorage.removeItem('company-profile');
   };
 
   return (
@@ -45,7 +46,7 @@ export const Header = () => {
           <AccountCircle
             onClick={() => {
               if (user.role === 'student') navigate('/student-profile');
-              // TO DO: Add navigation for company user
+              else if (user.role === 'company') navigate('/company-profile');
             }}
             sx={{ marginRight: 1, cursor: 'pointer' }}
           />

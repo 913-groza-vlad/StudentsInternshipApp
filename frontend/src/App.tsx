@@ -4,6 +4,7 @@ import { StartPage } from './routes/login-page';
 import { RegisterPage } from './routes/register-page';
 import { WrapperInternshipsPage } from './routes/wrapper-internships-page';
 import { StudentProfilePage } from './routes/student-profile-page';
+import { CompanyProfilePage } from './routes/company-profile-page';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           element={<WrapperInternshipsPage userType="company" />}
         />
         <Route path="/student-profile" element={<StudentProfilePage />} />
+        <Route path="/company-profile" element={<CompanyProfilePage />} />
       </Routes>
     </>
   );

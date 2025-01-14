@@ -1,5 +1,6 @@
-import { CompanyRegisterRequest, StudentRegisterRequest } from "../../models/RegisterRequest";
-import { userService } from "../../services/userService";
+import { CompanyRegisterRequest, StudentRegisterRequest } from "../models/RegisterRequest";
+import { userService } from "./userService";
+
 
 export const RegisterCompanyUser = (registerRequest: CompanyRegisterRequest): boolean => {
   const { email, password, companyName, location }= registerRequest;

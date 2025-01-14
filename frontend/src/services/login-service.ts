@@ -1,5 +1,6 @@
-import { LoginRequest } from "../../models/LoginRequest";
-import { userService } from "../../services/userService";
+import { LoginRequest } from "../models/LoginRequest";
+import { userService } from "./userService";
+
 
 
 export const LoginUser = (loginRequest: LoginRequest): boolean => {

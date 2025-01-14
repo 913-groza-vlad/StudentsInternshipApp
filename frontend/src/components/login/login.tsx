@@ -10,9 +10,9 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { LoginRequest } from '../../models/LoginRequest';
-import { LoginUser } from './login-service';
 import { useState } from 'react';
 import { userService } from '../../services/userService';
+import { LoginUser } from '../../services/login-service';
 
 export const LoginComponent = () => {
   const navigate = useNavigate();

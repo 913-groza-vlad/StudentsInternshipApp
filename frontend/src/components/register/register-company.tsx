@@ -8,8 +8,8 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { CompanyRegisterRequest } from '../../models/RegisterRequest';
-import { RegisterCompanyUser } from './register-service';
 import { useNavigate } from 'react-router-dom';
+import { RegisterCompanyUser } from '../../services/register-service';
 
 export const CompanyRegistrationForm = () => {
   const navigate = useNavigate();
